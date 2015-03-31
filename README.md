@@ -1,2 +1,2 @@
 # project
-Bomberman like game wh
+Bomberman like game which will be developed as  advanced OOP course project.
