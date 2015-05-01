@@ -67,10 +67,10 @@ class GamePlayScene(Scene):
 		
 	def draw(self):
 		#print "GamePlayScene.draw()"
-		self.__bomb_group.draw(self.__screen)
 		self.__powerups_group.draw(self.__screen)
 		self.__wall_group.draw(self.__screen)
 		self.__player_group.draw(self.__screen)
+		self.__bomb_group.draw(self.__screen)
 		self.__explosion_group.draw(self.__screen)
 		self.__scoreboard.draw()
 		
