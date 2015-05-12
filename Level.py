@@ -1,6 +1,7 @@
 from Player import Player
 from Wall import *
 from PowerUp import *
+from Monster import *
 
 class Level:
 	def __init__(self):
@@ -24,13 +25,22 @@ class Level_1(Level):
 		Level.__init__(self)
 	def createLevel(self):
 		self.player.append(("Player",100, 100))
+#		self.player.append(("Player",200, 100))
+
 		self.walls.append(("Wall", 300, 200))
 		self.walls.append(("Wall", 300, 250))
 		self.walls.append(("Wall", 300, 300))
 		self.walls.append(("Wall", 300, 350))
 		self.walls.append(("Wall", 300, 400))
+		
 		self.powerups.append(("PhaseMod", 400, 400))
 		self.powerups.append(("SpeedUp", 500, 500))
+		
+		self.monsters.append(("Monster",100, 300))
+		self.monsters.append(("Monster",100, 400))
+		self.monsters.append(("Monster",100, 500))
+
+		
 		print("Level 1 is created")
 		
 		

@@ -31,27 +31,64 @@ class GamePlayScene(Scene):
 		for gameObject in self.__level.getPowerups():
 			self.__object_factory.create(self.__powerups_group, gameObject[0], gameObject[1], gameObject[2])
 			
+		### Create Monsters ###
+		self.__monster_group = pygame.sprite.RenderPlain()
+		for gameObject in self.__level.getMonsters():
+			self.__monster = self.__object_factory.create(self.__monster_group, gameObject[0], gameObject[1], gameObject[2])
+			
 		self.__scoreboard = ScoreBoard(self.__screen, (5,5), self.__player)
 		
 		
 	def update(self):
-		### Detect and Handle Collisions ###
-		self.__bomb_collision_list = pygame.sprite.spritecollide(self.__player, self.__bomb_group, False)
-		for bomb in self.__bomb_collision_list:
-			self.__player.collide_bomb(bomb)
+		### Move monster ###
+		for monster in self.__monster_group:
+			monster.do_move()
 
-		self.__explosion_collision_list = pygame.sprite.spritecollide(self.__player, self.__explosion_group, False)
-		for explosion in self.__explosion_collision_list:
-			self.__player.collide_explosion(explosion)
-			
-		self.__powerups_collision_list = pygame.sprite.spritecollide(self.__player, self.__powerups_group, True)
-		for powerup in self.__powerups_collision_list:
-			powerup.effect(self.__player)
-			
-		self.__wall_collision_list = pygame.sprite.spritecollide(self.__player, self.__wall_group, False)
-		for wall in self.__wall_collision_list:
-			self.__player.collide_wall(wall)
+		### Detect and Handle Collisions ###
 		
+		### Player and Bomb ###
+		self.__bomb_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__bomb_group, False, False)
+		for player, bombs in self.__bomb_collision_list.iteritems():
+			for bomb in bombs:
+				player.collide_bomb(bomb)
+
+		### Player and Explosion ###
+		self.__explosion_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__explosion_group, False, False)
+		for player, explosions in self.__explosion_collision_list.iteritems():
+			for explosion in explosions:
+				player.collide_explosion(explosion)
+		
+		### Player and Powerup ###
+		self.__powerups_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__powerups_group, False, True)
+		for player, powerups in self.__powerups_collision_list.iteritems():
+			for powerup in powerups:
+				powerup.effect(player)
+			
+		### Player and Wall ###
+		self.__wall_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__wall_group, False, False)
+		for player, walls in self.__wall_collision_list.iteritems():
+			for wall in walls:
+				player.collide_wall(wall)
+			
+		### Player and Monster ###
+		self.__monster_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__monster_group, False, False)
+		for player, monsters in self.__monster_collision_list.iteritems():
+			for monster in monsters:
+				player.collide_monster(monster)
+				monster.collide_player(player)
+			
+		### Monster and Explosion ###
+		self.__monster_collision_list = pygame.sprite.groupcollide(self.__monster_group, self.__explosion_group, False, False)
+		for monster, explosion in self.__monster_collision_list.iteritems():
+			monster.collide_explosion(explosion)
+
+		### Monster and Wall ###
+		self.__monster_collision_list = pygame.sprite.groupcollide(self.__monster_group, self.__wall_group, False, False)
+		for monster, walls in self.__monster_collision_list.iteritems():
+			for wall in walls:
+				monster.collide_wall(wall)
+			
+		### Wall and Explosion ###
 		for wall in pygame.sprite.groupcollide(self.__explosion_group, self.__wall_group, False, False).values():
 			self.__wall_group.remove(wall)
 		####################################
@@ -62,6 +99,7 @@ class GamePlayScene(Scene):
 		self.__explosion_group.update()
 		self.__wall_group.update()
 		self.__powerups_group.update()
+		self.__monster_group.update()
 		#####################
 		self.__scoreboard.update()
 		
@@ -72,6 +110,7 @@ class GamePlayScene(Scene):
 		self.__player_group.draw(self.__screen)
 		self.__bomb_group.draw(self.__screen)
 		self.__explosion_group.draw(self.__screen)
+		self.__monster_group.draw(self.__screen)
 		self.__scoreboard.draw()
 		
 	def handleEvents(self, events):

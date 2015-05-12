@@ -4,15 +4,14 @@ from GameObject import GameObject
 from Bomb import Bomb
 from Behaviours import *
 
-class Player(GameObject):
+class Monster(GameObject):
 	def __init__(self, pos_x, pos_y):
 		GameObject.__init__(self)
 		self.__explosion_collision = DieBehaviour()
 		self.__bomb_collision = DontPassThroughBehaviour()
 		self.__wall_collision = DontPassThroughBehaviour()
-		self.__monster_collision = DontPassThroughBehaviour()
+		self.__player_collision = DontPassThroughBehaviour()
 
-		
 		self.sprite_sheet = SpriteSheet('avatar_scaled2.png')
 		self.frames_left = []
 		self.frames_right = []
@@ -87,6 +86,8 @@ class Player(GameObject):
 		self.frames_left.append(image)
 		
 	def update(self):
+		#self.stop_vertical()
+		#self.move_right()
 		self.rect.x += self.change_x
 		self.rect.y += self.change_y
 		self.pause += 1
@@ -105,9 +106,6 @@ class Player(GameObject):
 				self.frame = (self.frame + 1) % len(self.frames_down)
 				self.image = self.frames_down[self.frame]
 				
-	def drop_bomb(self):
-		self.score += 5
-		return Bomb(self.rect.x+5, self.rect.y+5)
 	def move_left(self):
 		self.change_x = -self.speed
 		self.direction = "L"
@@ -132,11 +130,12 @@ class Player(GameObject):
 		self.__explosion_collision.resolve(self, explosion)
 	def collide_wall(self, wall):
 		self.__wall_collision.resolve(self, wall)
-	def collide_monster(self, monster):
-		self.__monster_collision.resolve(self, monster)
+	def collide_player(self, player):
+		self.__player_collision.resolve(self, player)
 	def setSpeed(self, speed):
 		self.speed = speed
 	def set_collide_wall_behaviour(self, behaviour):
 		self.__wall_collision = behaviour
-	def get_score(self):
-		return self.score
+	def do_move(self):
+		self.move_right()
+
