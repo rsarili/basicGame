@@ -13,13 +13,13 @@ install pygame library
 run command  
 python Game.py  
 
-Player 1
+Player 1  
 left, right, up, down arrow keys for move
 "o" Key to plant a bomb  
 "p" key to explode the bomb  
 
 Player 2
-"a", "s", "d", "w" for move
+"a", "s", "d", "w" for move  
 SPACE" Key to plant a bomb  
 "e" key to explode the bomb  
 
