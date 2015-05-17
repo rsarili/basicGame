@@ -185,9 +185,6 @@ class Player(GameObject):
 		if self.bomb_count > 0:
 			for bomb in self.bombs:
 				explodes = bomb.explode()
-				for explode in explodes:
-					print("explosion")
-					explode.register_to_group(Explosion.sprite_group)
 			self.bomb_count = 0
 			self.bombs = []
 		

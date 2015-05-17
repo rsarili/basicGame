@@ -20,11 +20,15 @@ class DontPassThroughBehaviour(CollisionBehaviour):
 	def resolve(self, player, gameObject):
 		if(player.rect.bottom <= gameObject.rect.bottom and player.rect.bottom > gameObject.rect.top and player.direction == "D"):
 			player.change_y = 0
+			player.rect.bottom = gameObject.rect.top
 		if(player.rect.top >= gameObject.rect.top and player.rect.top < gameObject.rect.bottom and player.direction == "U"):
 			player.change_y = 0
+			player.rect.top = gameObject.rect.bottom
 		if( player.rect.left >= gameObject.rect.left and player.rect.left  <= gameObject.rect.right and player.direction == "L"):
 			player.change_x = 0
+			player.rect.left = gameObject.rect.right
 		if(player.rect.right <= gameObject.rect.right and player.rect.right  >= gameObject.rect.left and player.direction == "R"):
 			player.change_x = 0
+			player.rect.right = gameObject.rect.left
 
 
