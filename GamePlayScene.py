@@ -11,13 +11,19 @@ class GamePlayScene(Scene):
 		pygame.mouse.set_visible(0)
 		self.__level = game.getLevel()
 		self.__object_factory = GameObjectFactory()
+		self.__players = []
+		self.__player_count = 1
 		
 		### Create Players ###
 		self.__player_group = pygame.sprite.RenderPlain()
 		for gameObject in self.__level.getPlayers():
 			self.__player = self.__object_factory.create(self.__player_group, gameObject[0], gameObject[1], gameObject[2])
+			self.__player.set_keys_for_player_num(self.__player_count)
+			self.__player_count += 1
+			self.__players.append(self.__player)
 			
 		self.__bomb_group = pygame.sprite.RenderPlain()
+		Bomb.sprite_group = self.__bomb_group
 				
 		### Create Walls ###
 		self.__wall_group = pygame.sprite.RenderPlain()
@@ -25,6 +31,7 @@ class GamePlayScene(Scene):
 			self.__object_factory.create(self.__wall_group, gameObject[0], gameObject[1], gameObject[2])
 		
 		self.__explosion_group = pygame.sprite.RenderPlain()
+		Explosion.sprite_group = self.__explosion_group
 		
 		### Create PowerUps ###
 		self.__powerups_group = pygame.sprite.RenderPlain()
@@ -37,7 +44,6 @@ class GamePlayScene(Scene):
 			self.__monster = self.__object_factory.create(self.__monster_group, gameObject[0], gameObject[1], gameObject[2])
 			
 		self.__scoreboard = ScoreBoard(self.__screen, (5,5), self.__player)
-		
 		
 	def update(self):
 		### Move monster ###
@@ -120,37 +126,9 @@ class GamePlayScene(Scene):
 				self.__game.finish()
 				
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_LEFT:
-					self.__player.stop_vertical()
-					self.__player.move_left()
-				elif event.key == pygame.K_RIGHT:
-					self.__player.stop_vertical()
-					self.__player.move_right()
-				elif event.key == pygame.K_UP:
-					self.__player.stop_horizontal()
-					self.__player.move_up()
-				elif event.key == pygame.K_DOWN:
-					self.__player.stop_horizontal()
-					self.__player.move_down()
-
+				for player in self.__players:
+					player.handle_key_down(event.key)
 
 			if event.type == pygame.KEYUP:
-				if event.key == pygame.K_LEFT and self.__player.change_x < 0:
-					self.__player.stop_horizontal()
-				elif event.key == pygame.K_RIGHT and self.__player.change_x > 0:
-					self.__player.stop_horizontal()
-				elif event.key == pygame.K_UP and self.__player.change_y < 0:
-					self.__player.stop_vertical()
-				elif event.key == pygame.K_DOWN and self.__player.change_y > 0:
-					self.__player.stop_vertical()
-				if event.key == pygame.K_SPACE:
-					if(not self.bomb):
-						self.bomb = self.__player.drop_bomb()
-						self.bomb.register_to_group(self.__bomb_group)
-				if event.key == pygame.K_a:
-					if(self.bomb):
-						self.explodes = self.bomb.explode()
-						self.bomb = None
-						for explode in self.explodes:
-							explode.register_to_group(self.__explosion_group)
-
+				for player in self.__players:
+					player.handle_key_up(event.key)

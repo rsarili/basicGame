@@ -4,6 +4,7 @@ from GameObject import GameObject
 from Behaviours import *
 
 class PowerUp(GameObject):
+	sprite_group = None
 	def __init__(self):
 		GameObject.__init__(self)
 	def effect(self):

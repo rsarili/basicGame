@@ -4,6 +4,7 @@ from GameObject import GameObject
 from threading import Timer
 
 class Explosion(GameObject):
+	sprite_group = None
 	def __init__(self, pos_x, pos_y):
 		GameObject.__init__(self)
 		self.sprite_sheet = SpriteSheet('bomberman.png')

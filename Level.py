@@ -25,7 +25,7 @@ class Level_1(Level):
 		Level.__init__(self)
 	def createLevel(self):
 		self.player.append(("Player",100, 100))
-#		self.player.append(("Player",200, 100))
+		self.player.append(("Player",200, 100))
 
 		self.walls.append(("Wall", 300, 200))
 		self.walls.append(("Wall", 300, 250))

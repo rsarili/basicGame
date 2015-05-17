@@ -20,3 +20,18 @@ class SpriteSheet(object):
 		image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
 		image.set_colorkey(BLACK)
 		return image
+
+
+PLAYER1_LEFT = pygame.K_LEFT
+PLAYER1_RIGHT = pygame.K_RIGHT
+PLAYER1_UP = pygame.K_UP
+PLAYER1_DOWN = pygame.K_DOWN
+PLAYER1_BOMB_DROP = pygame.K_o
+PLAYER1_BOMB_EXPLODE = pygame.K_p
+
+PLAYER2_LEFT = pygame.K_a
+PLAYER2_RIGHT = pygame.K_d
+PLAYER2_UP = pygame.K_w
+PLAYER2_DOWN = pygame.K_s
+PLAYER2_BOMB_DROP = pygame.K_SPACE
+PLAYER2_BOMB_EXPLODE = pygame.K_e
