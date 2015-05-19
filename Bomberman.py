@@ -13,7 +13,7 @@ class Bomberman:
 		pygame.display.set_caption('Bomberman')
 		
 		self.__clock = pygame.time.Clock()
-		self.__current_level = Level_1()
+		#self.__current_level = Level_1()
 		pygame.init()
 		pygame.mixer.pre_init()
 		#song = pygame.mixer.Sound("JustLikeThat.wav")
@@ -21,7 +21,7 @@ class Bomberman:
 	def start(self):
 		print("Height: " + str(SCREEN_HEIGHT))
 		print("Width: " + str(SCREEN_WIDTH))
-		self.__current_level.createLevel()
+		#self.__current_level.createLevel()
 		self.__current_scene = MenuScene(self)
 		
 		while 1:
@@ -35,6 +35,8 @@ class Bomberman:
 			pygame.display.flip()
 	def finish(self):
 		exit()
+	def setLevel(self, level):
+		self.__current_level = level
 	def getLevel(self):
 		return self.__current_level
 	def getScreen(self):
