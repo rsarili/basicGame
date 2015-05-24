@@ -36,7 +36,9 @@ class Bomberman:
 	def finish(self):
 		exit()
 	def setLevel(self, level):
-		self.__current_level = level
+		if(level):
+			self.__current_level = level
+			self.__current_level.createLevel()
 	def getLevel(self):
 		return self.__current_level
 	def getScreen(self):

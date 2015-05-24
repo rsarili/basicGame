@@ -5,6 +5,7 @@ from Wall import *
 from PowerUp import *
 from Player import *
 from Monster import *
+from Door import *
 
 class GameObjectFactory:
 	def create(self, group, gameObject, pos_x, pos_y):
@@ -22,6 +23,8 @@ class GameObjectFactory:
 			self.gameObject =  SpeedUp(pos_x, pos_y)
 		elif(gameObject == "PhaseMod"):
 			self.gameObject =  PhaseMod(pos_x, pos_y)
+		elif(gameObject == "Door"):
+			self.gameObject = Door(pos_x, pos_y)
 		
 		self.gameObject.register_to_group(group)
 		return self.gameObject

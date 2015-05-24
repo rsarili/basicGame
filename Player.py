@@ -80,6 +80,7 @@ class Player(GameObject):
 		self.bomb_count = 0
 		self.bomb_limit = 2
 		self.bombs = []
+		self.__name = None
 
 	def load_frames(self):
 		image=self.sprite_sheet.get_image(0,192,144,192)
@@ -157,6 +158,9 @@ class Player(GameObject):
 		
 	def get_score(self):
 		return self.score
+	
+	def get_name(self):
+		return self.__name
 		
 	def handle_left_pressed(self):
 		self.stop_vertical()
@@ -190,6 +194,7 @@ class Player(GameObject):
 		
 	def set_keys_for_player_num(self, player_num):
 		if player_num == 1:
+			self.__name = PLAYER1_NAME
 			self.__left_key = PLAYER1_LEFT
 			self.__right_key = PLAYER1_RIGHT
 			self.__up_key = PLAYER1_UP
@@ -197,6 +202,7 @@ class Player(GameObject):
 			self.__bomb_drop_key = PLAYER1_BOMB_DROP
 			self.__bomb_explode_key = PLAYER1_BOMB_EXPLODE
 		elif player_num == 2:
+			self.__name = PLAYER2_NAME
 			self.__left_key = PLAYER2_LEFT
 			self.__right_key = PLAYER2_RIGHT
 			self.__up_key = PLAYER2_UP

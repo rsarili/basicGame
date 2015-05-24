@@ -21,7 +21,7 @@ class SpriteSheet(object):
 		image.set_colorkey(BLACK)
 		return image
 
-
+PLAYER1_NAME = "PLAYER 1"
 PLAYER1_LEFT = pygame.K_LEFT
 PLAYER1_RIGHT = pygame.K_RIGHT
 PLAYER1_UP = pygame.K_UP
@@ -29,6 +29,7 @@ PLAYER1_DOWN = pygame.K_DOWN
 PLAYER1_BOMB_DROP = pygame.K_o
 PLAYER1_BOMB_EXPLODE = pygame.K_p
 
+PLAYER2_NAME = "PLAYER 2"
 PLAYER2_LEFT = pygame.K_a
 PLAYER2_RIGHT = pygame.K_d
 PLAYER2_UP = pygame.K_w

@@ -61,7 +61,6 @@ class MenuScene(Scene):
 	def handleEvents(self, events):
 		for event in events:
 			if event.type == pygame.MOUSEBUTTONUP:
-				print("Single Player")
 				if self.__item1.getRect().collidepoint(pygame.mouse.get_pos()):
 					self.__game.setLevel(Level_1_SinglePlayer())
 					self.__game.changeScene(GamePlayScene(self.__game))

@@ -2,6 +2,7 @@ import pygame
 from Scene import Scene
 from GameObjectFactory import *
 from ScoreBoard import *
+from Level import *
 
 class GamePlayScene(Scene):
 	def __init__(self, game):
@@ -10,15 +11,19 @@ class GamePlayScene(Scene):
 		self.__screen = game.getScreen()
 		pygame.mouse.set_visible(0)
 		self.__level = game.getLevel()
+		self.createLevelScene(self.__level)
+	def createLevelScene(self, level):
 		self.__object_factory = GameObjectFactory()
 		self.__players = []
 		self.__player_count = 1
 		
 		### Create Players ###
 		self.__player_group = pygame.sprite.RenderPlain()
-		for gameObject in self.__level.getPlayers():
+		print("Create Level")
+		for gameObject in level.getPlayers():
 			self.__player = self.__object_factory.create(self.__player_group, gameObject[0], gameObject[1], gameObject[2])
 			self.__player.set_keys_for_player_num(self.__player_count)
+			print("Set Keys player count " + str(len(level.getPlayers())))
 			self.__player_count += 1
 			self.__players.append(self.__player)
 			
@@ -27,7 +32,7 @@ class GamePlayScene(Scene):
 				
 		### Create Walls ###
 		self.__wall_group = pygame.sprite.RenderPlain()
-		for gameObject in self.__level.getWalls():
+		for gameObject in level.getWalls():
 			self.__object_factory.create(self.__wall_group, gameObject[0], gameObject[1], gameObject[2])
 		
 		self.__explosion_group = pygame.sprite.RenderPlain()
@@ -35,15 +40,20 @@ class GamePlayScene(Scene):
 		
 		### Create PowerUps ###
 		self.__powerups_group = pygame.sprite.RenderPlain()
-		for gameObject in self.__level.getPowerups():
+		for gameObject in level.getPowerups():
 			self.__object_factory.create(self.__powerups_group, gameObject[0], gameObject[1], gameObject[2])
 			
 		### Create Monsters ###
 		self.__monster_group = pygame.sprite.RenderPlain()
-		for gameObject in self.__level.getMonsters():
+		for gameObject in level.getMonsters():
 			self.__monster = self.__object_factory.create(self.__monster_group, gameObject[0], gameObject[1], gameObject[2])
 			
-		self.__scoreboard = ScoreBoard(self.__screen, (5,5), self.__player)
+		### Create Doors ###
+		self.__door_group = pygame.sprite.RenderPlain()
+		for gameObject in level.getDoors():
+			self.__door = self.__object_factory.create(self.__door_group, gameObject[0], gameObject[1], gameObject[2])
+			
+		self.__scoreboard = ScoreBoard(self.__screen, (5,5), self.__players)
 		
 	def update(self):
 		### Move monster ###
@@ -75,6 +85,14 @@ class GamePlayScene(Scene):
 		for player, walls in self.__wall_collision_list.iteritems():
 			for wall in walls:
 				player.collide_wall(wall)
+				
+		### Player and Door ###
+		self.__door_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__door_group, False, False)
+		for player, doors in self.__door_collision_list.iteritems():
+			for door in doors:
+				self.__game.setLevel(self.__level.getNextLevel())
+				self.__level = self.__game.getLevel()
+				self.createLevelScene(self.__level)
 			
 		### Player and Monster ###
 		self.__monster_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__monster_group, False, False)
@@ -106,17 +124,20 @@ class GamePlayScene(Scene):
 		self.__wall_group.update()
 		self.__powerups_group.update()
 		self.__monster_group.update()
+		self.__door_group.update()
 		#####################
 		self.__scoreboard.update()
 		
 	def draw(self):
 		#print "GamePlayScene.draw()"
 		self.__powerups_group.draw(self.__screen)
+		self.__door_group.draw(self.__screen)
 		self.__wall_group.draw(self.__screen)
 		self.__player_group.draw(self.__screen)
 		self.__bomb_group.draw(self.__screen)
 		self.__explosion_group.draw(self.__screen)
 		self.__monster_group.draw(self.__screen)
+
 		self.__scoreboard.draw()
 		
 	def handleEvents(self, events):
