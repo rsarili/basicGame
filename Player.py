@@ -10,10 +10,10 @@ class Player(GameObject):
 	sprite_group = None
 	def __init__(self, pos_x, pos_y):
 		GameObject.__init__(self)
-		self.__explosion_collision = DieBehaviour()
+		self.__explosion_collision = PlayerDieBehaviour()
 		self.__bomb_collision = DontPassThroughBehaviour()
 		self.__wall_collision = DontPassThroughBehaviour()
-		self.__monster_collision = DontPassThroughBehaviour()
+		self.__monster_collision = PlayerDieBehaviour()
 		
 		self.sprite_sheet = SpriteSheet('avatar_scaled2.png')
 		self.frames_left = []
@@ -81,6 +81,7 @@ class Player(GameObject):
 		self.bomb_limit = 2
 		self.bombs = []
 		self.__name = None
+		self.obstacle_position = None
 
 	def load_frames(self):
 		image=self.sprite_sheet.get_image(0,192,144,192)
@@ -113,8 +114,8 @@ class Player(GameObject):
 				self.image = self.frames_down[self.frame]
 				
 	def drop_bomb(self):
-		self.score += 5
-		return Bomb(self.rect.x+5, self.rect.y+5)
+#		self.score += 5
+		return Bomb(self.rect.x+5, self.rect.y+5, self)
 		
 	def move_left(self):
 		self.change_x = -self.speed

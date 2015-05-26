@@ -12,6 +12,7 @@ class Monster(GameObject):
 		self.__bomb_collision = DontPassThroughBehaviour()
 		self.__wall_collision = DontPassThroughBehaviour()
 		self.__player_collision = DontPassThroughBehaviour()
+		self.movement_behaviour = None
 
 		self.sprite_sheet = SpriteSheet('avatar_scaled2.png')
 		self.frames_left = []
@@ -20,7 +21,7 @@ class Monster(GameObject):
 		self.frames_down = []
 		self.width = 62
 		self.height = 62
-		
+		self.worth = 100
 		###### left frames ###############
 		image=self.sprite_sheet.get_image(0,62,self.width,self.height)
 		self.frames_left.append(image)
@@ -71,9 +72,10 @@ class Monster(GameObject):
 		self.frame=0
 		self.delay=4
 		self.pause=0
-		self.direction=None
+		self.direction="R"
 		self.speed = 3
 		self.score = 0
+		self.obstacle_position = None
 
 	def load_frames(self):
 		image=self.sprite_sheet.get_image(0,192,144,192)
@@ -109,16 +111,21 @@ class Monster(GameObject):
 				
 	def move_left(self):
 		self.change_x = -self.speed
-		self.direction = "L"
 	def move_right(self):
 		self.change_x = self.speed
-		self.direction = "R"
 	def move_up(self):
 		self.change_y = -self.speed
-		self.direction = "U"
 	def move_down(self):
 		self.change_y = self.speed
-		self.direction = "D"
+	def move(self):
+		if self.direction == "L":
+			self.move_left()
+		elif self.direction == "R":
+			self.move_right()
+		elif self.direction == "U":
+			self.move_up()
+		elif self.direction == "D":
+			self.move_down()
 	def stop_vertical(self):
 		self.change_y = 0
 		self.direction = None
@@ -138,5 +145,4 @@ class Monster(GameObject):
 	def set_collide_wall_behaviour(self, behaviour):
 		self.__wall_collision = behaviour
 	def do_move(self):
-		self.move_right()
-
+		self.movement_behaviour.move(self)

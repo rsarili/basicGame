@@ -45,9 +45,12 @@ class GamePlayScene(Scene):
 			
 		### Create Monsters ###
 		self.__monster_group = pygame.sprite.RenderPlain()
+		self.monster_list = []
 		for gameObject in level.getMonsters():
 			self.__monster = self.__object_factory.create(self.__monster_group, gameObject[0], gameObject[1], gameObject[2])
-			
+			self.monster_list.append(self.__monster)
+		level.setMonsterBehaviours(self.monster_list)
+		
 		### Create Doors ###
 		self.__door_group = pygame.sprite.RenderPlain()
 		for gameObject in level.getDoors():
@@ -103,8 +106,15 @@ class GamePlayScene(Scene):
 			
 		### Monster and Explosion ###
 		self.__monster_collision_list = pygame.sprite.groupcollide(self.__monster_group, self.__explosion_group, False, False)
-		for monster, explosion in self.__monster_collision_list.iteritems():
-			monster.collide_explosion(explosion)
+		for monster, explosions in self.__monster_collision_list.iteritems():
+			for explosion in explosions:
+				monster.collide_explosion(explosion)
+			
+		### Monster and Bomb ###
+		self.__monster_collision_list = pygame.sprite.groupcollide(self.__monster_group, self.__bomb_group, False, False)
+		for monster, bombs in self.__monster_collision_list.iteritems():
+			for bomb in bombs:
+				monster.collide_bomb(bomb)
 
 		### Monster and Wall ###
 		self.__monster_collision_list = pygame.sprite.groupcollide(self.__monster_group, self.__wall_group, False, False)
@@ -113,8 +123,10 @@ class GamePlayScene(Scene):
 				monster.collide_wall(wall)
 			
 		### Wall and Explosion ###
-		for wall in pygame.sprite.groupcollide(self.__explosion_group, self.__wall_group, False, False).values():
-			self.__wall_group.remove(wall)
+		self.__wall_collision_list = pygame.sprite.groupcollide(self.__wall_group, self.__explosion_group, False, False)
+		for wall, explosions in self.__wall_collision_list.iteritems():
+			for explosion in explosions:
+				wall.collide_explosion(explosion)
 		####################################
 		
 		### Update Groups ###

@@ -13,7 +13,6 @@ class Bomberman:
 		pygame.display.set_caption('Bomberman')
 		
 		self.__clock = pygame.time.Clock()
-		#self.__current_level = Level_1()
 		pygame.init()
 		pygame.mixer.pre_init()
 		#song = pygame.mixer.Sound("JustLikeThat.wav")
@@ -26,7 +25,7 @@ class Bomberman:
 		
 		while 1:
 			self.__clock.tick(60)
-			self.__screen.fill((0, 0, 0))
+			self.__screen.fill(BLACK)
 			
 			self.__current_scene.handleEvents(pygame.event.get())            
 			self.__current_scene.update()
@@ -45,3 +44,7 @@ class Bomberman:
 		return self.__screen
 	def changeScene(self, scene):
 		self.__current_scene = scene
+		
+if __name__ == "__main__":
+	game = Bomberman()
+	game.start()
