@@ -11,7 +11,7 @@ BLUE     = (   0,   0, 255)
 
 
 # class to load images from sprite sheets
-class SpriteSheet(object):
+class SpriteSheet():
 	sprite_sheet = None
 	def __init__(self, file_name):
 		self.sprite_sheet = pygame.image.load(file_name).convert()
@@ -20,6 +20,7 @@ class SpriteSheet(object):
 		image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
 		image.set_colorkey(BLACK)
 		return image
+				
 
 PLAYER1_NAME = "PLAYER 1"
 PLAYER1_LEFT = pygame.K_LEFT

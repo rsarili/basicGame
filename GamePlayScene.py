@@ -12,6 +12,7 @@ class GamePlayScene(Scene):
 		pygame.mouse.set_visible(0)
 		self.__level = game.getLevel()
 		self.createLevelScene(self.__level)
+		
 	def createLevelScene(self, level):
 		self.__object_factory = GameObjectFactory()
 		self.__players = []
@@ -45,6 +46,7 @@ class GamePlayScene(Scene):
 			
 		### Create Monsters ###
 		self.__monster_group = pygame.sprite.RenderPlain()
+		Monster.sprite_group = self.__monster_group
 		self.monster_list = []
 		for gameObject in level.getMonsters():
 			self.__monster = self.__object_factory.create(self.__monster_group, gameObject[0], gameObject[1], gameObject[2])

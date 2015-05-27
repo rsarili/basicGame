@@ -7,19 +7,23 @@ class CollisionBehaviour():
 class DieBehaviour(CollisionBehaviour):
 	def resolve(self, gameObject1, explosion):
 		explosion.player.score += gameObject1.worth
+		gameObject1.worth = 0
 		gameObject1.deregister_from_group()
-		print "DieBehaviour"
+#		print "DieBehaviour"
 		
 class PlayerDieBehaviour(CollisionBehaviour):
 	def resolve(self, gameObject1, gameObject2):
-		print "PlayerDieBehaviour"
+		pass
+#		print "PlayerDieBehaviour"
 class TakeBehavior(CollisionBehaviour):
 	def resolve(self, gameObject1, gameObject2):
-		print "TakeBehaviour"
+		pass
+#		print "TakeBehaviour"
 		
 class PassThroughBehaviour(CollisionBehaviour):
 	def resolve(self, gameObject1, gameObject2):
-		print "PassThroughBehaviour"
+		pass
+#		print "PassThroughBehaviour"
 		
 class DontPassThroughBehaviour(CollisionBehaviour):
 	def resolve(self, player, gameObject):
