@@ -1,7 +1,6 @@
 import pygame
 from Constants import *
 from GameObject import GameObject
-from Bomb import Bomb
 from Behaviours import *
 
 class Monster(GameObject):

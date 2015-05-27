@@ -33,6 +33,7 @@ class GamePlayScene(Scene):
 				
 		### Create Walls ###
 		self.__wall_group = pygame.sprite.RenderPlain()
+		Wall.sprite_group = self.__wall_group
 		for gameObject in level.getWalls():
 			self.__object_factory.create(self.__wall_group, gameObject[0], gameObject[1], gameObject[2])
 		
