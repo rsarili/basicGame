@@ -5,10 +5,10 @@ SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
 
 # Colors
-BLACK    = (   0,   0,   0) 
-WHITE    = ( 255, 255, 255) 
-BLUE     = (   0,   0, 255)
-
+BLACK = (0, 0, 0) 
+WHITE = (255, 255, 255) 
+BLUE = (0, 0, 255)
+RED = (255, 0, 0)
 
 # class to load images from sprite sheets
 class SpriteSheet():
@@ -37,3 +37,5 @@ PLAYER2_UP = pygame.K_w
 PLAYER2_DOWN = pygame.K_s
 PLAYER2_BOMB_DROP = pygame.K_SPACE
 PLAYER2_BOMB_EXPLODE = pygame.K_e
+
+GAME = None

@@ -1,4 +1,5 @@
 from GameObject import *
+from Constants import *
 
 class CollisionBehaviour():
 	def resolve(self, gameObject1, gameObject2):
@@ -13,11 +14,14 @@ class DieBehaviour(CollisionBehaviour):
 		
 class PlayerDieBehaviour(CollisionBehaviour):
 	def resolve(self, gameObject1, gameObject2):
-		pass
+		gameObject1.isDead = True
+		gameObject1.deregister_from_group()
 		print "PlayerDieBehaviour"
+
 class TakeBehavior(CollisionBehaviour):
 	def resolve(self, gameObject1, gameObject2):
-		pass
+		gameObject2.effect(gameObject1)
+		gameObject2.deregister_from_group()
 		print "TakeBehaviour"
 		
 class PassThroughBehaviour(CollisionBehaviour):

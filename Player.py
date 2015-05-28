@@ -14,6 +14,7 @@ class Player(GameObject):
 		self.__bomb_collision = DontPassThroughBehaviour()
 		self.__wall_collision = DontPassThroughBehaviour()
 		self.__monster_collision = PlayerDieBehaviour()
+		self.__powerup_collision = TakeBehavior()
 		
 		self.sprite_sheet = SpriteSheet('avatar_scaled2.png')
 		self.frames_left = []
@@ -22,6 +23,7 @@ class Player(GameObject):
 		self.frames_down = []
 		self.width = 62
 		self.height = 62
+		self.isDead = False
 		
 		###### left frames ###############
 		image=self.sprite_sheet.get_image(0,62,self.width,self.height)
@@ -142,6 +144,9 @@ class Player(GameObject):
 		
 	def collide_bomb(self, bomb):
 		self.__bomb_collision.resolve(self, bomb)
+		
+	def collide_powerup(self, powerup):
+		self.__powerup_collision.resolve(self, powerup)
 		
 	def collide_explosion(self, explosion):
 		self.__explosion_collision.resolve(self, explosion)

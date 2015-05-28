@@ -3,6 +3,8 @@ from Scene import Scene
 from GameObjectFactory import *
 from ScoreBoard import *
 from Level import *
+from GameOverScene import *
+from PlayerWonScene import *
 
 class GamePlayScene(Scene):
 	def __init__(self, game):
@@ -27,6 +29,14 @@ class GamePlayScene(Scene):
 			print("Set Keys player count " + str(len(level.getPlayers())))
 			self.__player_count += 1
 			self.__players.append(self.__player)
+		
+		if not self.__game.players:
+			for i in range(len(self.__players)):
+				self.__game.players.append(self.__players[i])
+		else:
+			for i in range(len(self.__players)):
+				self.__players[i].score = self.__game.players[i].score
+				self.__game.players[i] = self.__players[i]
 			
 		self.__bomb_group = pygame.sprite.RenderPlain()
 		Bomb.sprite_group = self.__bomb_group
@@ -65,8 +75,15 @@ class GamePlayScene(Scene):
 		### Move monster ###
 		for monster in self.__monster_group:
 			monster.do_move()
-
+			
 		### Detect and Handle Collisions ###
+		for player in self.__players:
+			if player.isDead:
+				if len(self.__players) == 1:
+					self.__game.changeScene(GameOverScene(self.__game))
+				elif len(self.__players) == 2:
+					self.__game.changeScene(PlayerWonScene(self.__game))
+				
 		
 		### Player and Bomb ###
 		self.__bomb_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__bomb_group, False, False)
@@ -84,7 +101,9 @@ class GamePlayScene(Scene):
 		self.__powerups_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__powerups_group, False, True)
 		for player, powerups in self.__powerups_collision_list.iteritems():
 			for powerup in powerups:
-				powerup.effect(player)
+				player.collide_powerup(powerup)
+#				self.__game.changeScene(GameOverScene(self.__game))
+
 			
 		### Player and Wall ###
 		self.__wall_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__wall_group, False, False)

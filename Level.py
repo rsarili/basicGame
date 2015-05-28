@@ -70,7 +70,7 @@ class Level_1_SinglePlayer(Level):
 class Level_2_SinglePlayer(Level):
 	def __init__(self):
 		Level.__init__(self)
-		self.next_level = Level_Empty()
+		self.next_level = Level_Finished_SinglePlayer()
 		
 	def createLevel(self):
 		self.player.append(("Player",200, 100))
@@ -90,11 +90,24 @@ class Level_2_SinglePlayer(Level):
 		self.monsters.append(("Monster",100, 300))
 		self.monsters.append(("Monster",100, 400))
 		self.monsters.append(("Monster",100, 500))
+		
+		self.doors.append(("Door",500, 100))
+
 		print("Level 2 Single Player is created")
 	def setMonsterBehaviours(self, monsters):
 		monsters[0].movement_behaviour = RightLeftMovementBehaviour()
 		monsters[1].movement_behaviour = RightLeftMovementBehaviour()
 		monsters[2].movement_behaviour = RightLeftMovementBehaviour()
+		
+class Level_Finished_SinglePlayer(Level):
+	def __init__(self):
+		Level.__init__(self)
+	def createLevel(self):
+		self.player.append(("Player",200, 100))
+	def setMonsterBehaviours(self, monsters):
+		pass
+		
+
 
 class Level_1_MultiPlayer(Level):
 	def __init__(self):
@@ -131,5 +144,7 @@ class Level_Empty(Level):
 		Level.__init__(self)
 	def createLevel(self):
 		pass
+	def setMonsterBehaviours(self, monsters):
+		pass
 
-	
+
