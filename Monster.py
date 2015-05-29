@@ -73,7 +73,6 @@ class Monster(GameObject):
 		self.pause=0
 		self.direction="R"
 		self.speed = 5
-		self.score = 0
 		self.obstacle_position = None
 
 	def load_frames(self):
@@ -88,8 +87,6 @@ class Monster(GameObject):
 		self.frames_left.append(image)
 		
 	def update(self):
-		#self.stop_vertical()
-		#self.move_right()
 		self.rect.x += self.change_x
 		self.rect.y += self.change_y
 		self.pause += 1

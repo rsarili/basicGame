@@ -3,6 +3,7 @@ from Constants import *
 from GameObject import GameObject
 from Behaviours import *
 
+### There should be also a non destructable Wall
 class Wall(GameObject):
 	def __init__(self, pos_x, pos_y):
 		GameObject.__init__(self)

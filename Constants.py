@@ -37,5 +37,3 @@ PLAYER2_UP = pygame.K_w
 PLAYER2_DOWN = pygame.K_s
 PLAYER2_BOMB_DROP = pygame.K_SPACE
 PLAYER2_BOMB_EXPLODE = pygame.K_e
-
-GAME = None

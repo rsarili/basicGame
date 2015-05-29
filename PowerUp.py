@@ -9,6 +9,9 @@ class PowerUp(GameObject):
 		GameObject.__init__(self)
 	def effect(self):
 		pass
+		
+# Other power up can be added like increase bomb range, bomb limit, pass throgh bomb etc...
+# Related fields exist in gameObjects. Only need to a power up to change them.
 
 class SpeedUp(PowerUp):
 	def __init__(self, pos_x, pos_y):

@@ -80,10 +80,11 @@ class Player(GameObject):
 		self.score = 0
 		self.player_number = 1
 		self.bomb_count = 0
-		self.bomb_limit = 2
+		
+		### A power up can be added to change bomb limit ###
+		self.bomb_limit = 1
 		self.bombs = []
 		self.__name = None
-		self.obstacle_position = None
 
 	def load_frames(self):
 		image=self.sprite_sheet.get_image(0,192,144,192)
@@ -116,7 +117,6 @@ class Player(GameObject):
 				self.image = self.frames_down[self.frame]
 				
 	def drop_bomb(self):
-#		self.score += 5
 		return Bomb(self.rect.x+5, self.rect.y+5, self)
 		
 	def move_left(self):

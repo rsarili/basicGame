@@ -16,7 +16,7 @@ class Bomberman:
 	def start(self):
 		print("Height: " + str(SCREEN_HEIGHT))
 		print("Width: " + str(SCREEN_WIDTH))
-		#self.__current_level.createLevel()
+
 		self.__current_scene = MenuScene(self)
 		self.players = []
 		while 1:

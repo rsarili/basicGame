@@ -102,8 +102,6 @@ class GamePlayScene(Scene):
 		for player, powerups in self.__powerups_collision_list.iteritems():
 			for powerup in powerups:
 				player.collide_powerup(powerup)
-#				self.__game.changeScene(GameOverScene(self.__game))
-
 			
 		### Player and Wall ###
 		self.__wall_collision_list = pygame.sprite.groupcollide(self.__player_group, self.__wall_group, False, False)
@@ -177,7 +175,7 @@ class GamePlayScene(Scene):
 	def handleEvents(self, events):
 		for event in events:
 			print "GamePlayScene.handleEvent()"
-			if event.type == pygame.QUIT: # If user clicked close
+			if event.type == pygame.QUIT:
 				self.__game.finish()
 				
 			if event.type == pygame.KEYDOWN:
