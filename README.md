@@ -1,6 +1,8 @@
 # project
 Bomberman like game which will be developed as  advanced OOP course project.  
 
+Check Game.png for general picture
+
 This game has single and two player modes.  
 Instructions for player 1  
 arrow keys  
@@ -25,6 +27,7 @@ Following features can be added easily:
 - Different images for monsters and players
 - Non destructable walls
 - Better level design
+- Other monster action patterns
 
 ***********************
 ***********************
