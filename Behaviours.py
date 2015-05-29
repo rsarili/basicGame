@@ -1,6 +1,7 @@
 from GameObject import *
 from Constants import *
 
+### This class is defined to show interface does not do anything ###
 class CollisionBehaviour():
 	def resolve(self, gameObject1, gameObject2):
 		pass
@@ -48,6 +49,7 @@ class DontPassThroughBehaviour(CollisionBehaviour):
 			player.rect.right = gameObject.rect.left
 			player.obstacle_position = "R"
 
+### This class is defined to show interface does not do anything ###
 class MovementBehaviour():
 	def move(self, monster):
 		pass

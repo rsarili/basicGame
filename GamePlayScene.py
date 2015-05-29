@@ -30,14 +30,20 @@ class GamePlayScene(Scene):
 			self.__player_count += 1
 			self.__players.append(self.__player)
 		
+		### This is a kind of hack to pass players scores to next level ###
+		### Because every level players created again ###
+		### For first time player creation ###
 		if not self.__game.players:
 			for i in range(len(self.__players)):
 				self.__game.players.append(self.__players[i])
+		### Not first time creation
 		else:
 			for i in range(len(self.__players)):
 				self.__players[i].score = self.__game.players[i].score
 				self.__game.players[i] = self.__players[i]
-			
+		####################################################################
+		
+		### Create a Empty Bomb group, so created bomb can register ###
 		self.__bomb_group = pygame.sprite.RenderPlain()
 		Bomb.sprite_group = self.__bomb_group
 				
@@ -68,7 +74,8 @@ class GamePlayScene(Scene):
 		self.__door_group = pygame.sprite.RenderPlain()
 		for gameObject in level.getDoors():
 			self.__door = self.__object_factory.create(self.__door_group, gameObject[0], gameObject[1], gameObject[2])
-			
+		
+		### Create ScoreBoard ###
 		self.__scoreboard = ScoreBoard(self.__screen, (5,5), self.__players)
 		
 	def update(self):
@@ -161,7 +168,6 @@ class GamePlayScene(Scene):
 		self.__scoreboard.update()
 		
 	def draw(self):
-		#print "GamePlayScene.draw()"
 		self.__powerups_group.draw(self.__screen)
 		self.__door_group.draw(self.__screen)
 		self.__wall_group.draw(self.__screen)
@@ -174,7 +180,6 @@ class GamePlayScene(Scene):
 		
 	def handleEvents(self, events):
 		for event in events:
-			print "GamePlayScene.handleEvent()"
 			if event.type == pygame.QUIT:
 				self.__game.finish()
 				

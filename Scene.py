@@ -1,3 +1,4 @@
+### This class is defined to show interface does not do anything ###
 class Scene():
 	def __init__(self, game):
 		pass

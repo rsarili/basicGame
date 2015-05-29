@@ -19,7 +19,6 @@ class GameOverScene(Scene):
 		self.__font_big=pygame.font.SysFont(None,75)
 		self.__font_little=pygame.font.SysFont(None,50)
 
-		
 		self.__game_over_text = Text((220,100),"Game Over!", self.__font_big)
 		self.__score_text = Text((220,200),"Player 1 Score: "+ str(self.__game.players[0].score), self.__font_little)
 	def update(self):
