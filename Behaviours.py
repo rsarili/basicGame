@@ -27,7 +27,7 @@ class TakeBehavior(CollisionBehaviour):
 class PassThroughBehaviour(CollisionBehaviour):
 	def resolve(self, gameObject1, gameObject2):
 		pass
-#		print "PassThroughBehaviour"
+		print "PassThroughBehaviour"
 		
 class DontPassThroughBehaviour(CollisionBehaviour):
 	def resolve(self, player, gameObject):

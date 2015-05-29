@@ -24,9 +24,9 @@ class ScoreBoard:
 				
 		def draw(self):
 			for i in range(len(self.players)):
-				self.item_score = self.font.render(self.score_texts[i], True, BLUE)
+				self.item_score = self.font.render(self.score_texts[i], True, RED)
 				self.screen.blit(self.item_score, (self.pos[0]+150*(i+1), self.pos[1]))
 			
-			self.item_time = self.font.render(self.text_time, True, BLUE)
+			self.item_time = self.font.render(self.text_time, True, RED)
 			self.screen.blit(self.item_time, self.pos)
 

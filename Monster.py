@@ -72,7 +72,7 @@ class Monster(GameObject):
 		self.delay=4
 		self.pause=0
 		self.direction="R"
-		self.speed = 3
+		self.speed = 5
 		self.score = 0
 		self.obstacle_position = None
 
